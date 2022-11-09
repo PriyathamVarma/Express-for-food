@@ -10,6 +10,7 @@ const cors = require('cors');
 
 // Middleware for JSON data recieving
 app.use(express.json());
+app.use(cors());
 
 // ENV
 const dotenv = require('dotenv');
@@ -75,17 +76,17 @@ app.post('/foods/create',async(req,res)=>{
 
     const _body = req.body;
 
-    // const _food        = _body.food;
-    // const _price       = _body.price;
-    // const _category    = _body.Category;
-    // const _link        = _body.link;
-    // const _description = _body.description;
+    const _food        = _body.food;
+    const _price       = _body.price;
+    const _category    = _body.Category;
+    const _link        = _body.link;
+    const _description = _body.description;
 
-    const _food        = "Chicken";
-    const _price       =  100;
-    const _category    = "indian";
-    const _link        = "https://cdn.vox-cdn.com/thumbor/aNM9cSJCkTc4-RK1avHURrKBOjU=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/20059022/shutterstock_1435374326.jpg";
-    const _description = "description";
+    // const _food        = "Chicken";
+    // const _price       =  100;
+    // const _category    = "indian";
+    // const _link        = "https://cdn.vox-cdn.com/thumbor/aNM9cSJCkTc4-RK1avHURrKBOjU=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/20059022/shutterstock_1435374326.jpg";
+    // const _description = "description";
 
 
     const newdata = new foodModal({
@@ -100,7 +101,8 @@ app.post('/foods/create',async(req,res)=>{
 
     newdata.save();
 
-    res.send("Succesfully added data");
+    const reqData = await foodModal.find();
+    res.send(reqData);
 })
 
 // Read all
